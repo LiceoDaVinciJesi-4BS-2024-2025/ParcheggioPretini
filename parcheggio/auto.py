@@ -1,6 +1,6 @@
-import veicolo
+from veicolo import Veicolo
 
-class Auto(veicolo.Veicolo):
+class Auto(Veicolo):
     
     def __init__(self, targa: str, passeggeriMassimi: int, numeroPasseggeri: int, kgTrasportati: int, kgMassimi: int):
         

@@ -56,4 +56,4 @@ class Moto(veicolo.Veicolo):
 #     moto1.marca = "fiat"
 #     moto1.passeggeriMassimi = 1
 #     moto1.numeroPasseggeri = 1
-    print(moto1)
+#     print(moto1)
