@@ -1,7 +1,7 @@
 # Edoardo Pretini 4BS
 alimOk = ("benzina", "diesel", "elettrico", "metano", "GPL")
-marchiOk = ("fiat", "toyota", "audi", "bmw", "mercedes", "subaru")
-modelliOk = ("panda", "yaris", "a3", "serie3", "classeA", "impreza")
+marchiOk = ("fiat", "toyota", "audi", "bmw", "mercedes", "subaru", "beta")
+modelliOk = ("panda", "yaris", "a3", "serie3", "classeA", "impreza", "enduro")
 coloriOk = ("rosso", "grigio", "nero", "bianco", "blu")
 alfabeto = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 numeri = ["1","2","3","4","5","6","7","8","9","0"]
@@ -130,12 +130,12 @@ class Veicolo:
 
 #---------------------------------------------
 
-# if __name__ == "__main__":
-#     
-#     veicolo1 = Veicolo("AB123DD","subaru","yaris",None,200)
-#     print(veicolo1)
-#     
-#     veicolo2 = Veicolo("AB123FD","subaru","yaris",None,100)
-#     print(veicolo2)
-#     
-#     print(veicolo1 < veicolo2)
+if __name__ == "__main__":
+    
+    veicolo1 = Veicolo("AB123DD","subaru","yaris",None,200)
+    print(veicolo1)
+    
+    veicolo2 = Veicolo("AB123FD","subaru","yaris",None,100)
+    print(veicolo2)
+    
+    print(veicolo1 < veicolo2)

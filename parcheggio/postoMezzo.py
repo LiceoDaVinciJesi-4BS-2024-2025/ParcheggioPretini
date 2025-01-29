@@ -115,12 +115,12 @@ class PostoMezzo:
             return False
 #------------------------------------          
                       
-# if __name__ == "__main__":
-#     
-#     moto = Moto("AB123CD", 2, 1)
-#     posto = PostoMezzo(False, "Moto", None, None)
-#     print(posto)
-#     print(posto.parcheggia(moto, 3))
-#     print(posto)
-#     posto.libera()
-#     print(posto)
+if __name__ == "__main__":
+    
+    moto = Moto("AB123CD", 2, 1)
+    posto = PostoMezzo(False, "Moto", None, None)
+    print(posto)
+    print(posto.parcheggia(moto, 3))
+    print(posto)
+    posto.libera()
+    print(posto)

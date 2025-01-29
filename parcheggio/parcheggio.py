@@ -1,3 +1,4 @@
+from pathlib import Path
 from moto import Moto
 from auto import Auto
 from postoMezzo import PostoMezzo
@@ -9,6 +10,35 @@ class Parcheggio:
             self.__postiAuto = [PostoMezzo(False, "Auto") for x in range(1000)]
             self.__postiMoto = [PostoMezzo(False, "Moto") for x in range(200)]   
     
+    def __str__(self):
+        a = "Parcheggio: " + str(self.__dict__)
+        return a
+                
+    
+    def parcheggiaVeicolo(self, tipologia, veicolo, oreSosta):
+        
+        if tipologia == "Auto":
+            lista = self.__postiAuto
+        else:
+            lista = self.__postiMoto
+        
+        for parcheggio in lista:
+            if parcheggio.occupato == False:
+                parcheggio.parcheggia(veicolo, oreSosta)
+                break
+    
+    def liberaParcheggio(self, tipologia, targa):
+        
+        if tipologia == "Auto":
+            lista = self.__postiAuto
+        else:
+            lista = self.__postiMoto
+        
+        for parcheggio in lista:
+            if parcheggio.targa == targa:
+                parcheggio.libera()
+                break
+            
     def postiLiberi(self, tipologia) -> int:
         cnt = 0
 
@@ -22,7 +52,8 @@ class Parcheggio:
                 if elem.occupato == False:
                     cnt += 1
         return cnt
-            
+    
+    
     def pagaParcheggio(self, veicolo, oreSosta) -> int:
         
         if isinstance(veicolo, Auto):
@@ -42,28 +73,39 @@ class Parcheggio:
         return totale
     
     def totaleGuadagno(self) -> int:
-        totale = 0
+        totaleMoto = 0
+        totaleAuto = 0
+        
         for elem in self.__postiAuto:
             if elem.occupato:
-                totale = totale + (elem.oreSosta * 1.5)
+                totaleAuto += (elem.oreSosta * 1.5)
         
         for elem in self.__postiMoto:
             if elem.occupato:
-                totale = totale + (elem.oreSosta * 1.2)
+                totaleMoto += (elem.oreSosta * 1.2)
 
-        return totale
+        return (totaleAuto + totaleMoto) / 2
 
-#----------------------------------------------
+# Perché se tolgo il diviso 2 porta il doppio?
 
-# if __name__ == "__main__":
-#     moto1 = Moto("AB123CD", 2, 1)
-#     moto2 = Moto("AF425ER", 1, 1)
-#     auto1 = Auto("JK198QC", 5, 3, 200, 500)
-#     auto2 = Auto("QE826BC", 5, 1, 200, 500)
-#     parcheggio = Parcheggio()
-#     pagamento = parcheggio.pagaParcheggio(moto1, 3)
-#     print(pagamento)
-#     print(parcheggio.pagaParcheggio(auto1, 3))
-#     print(parcheggio.totaleGuadagno())
-#     print(parcheggio.postiLiberi("Auto"))
-#     print(parcheggio.postiLiberi("Moto"))
+#--------------------------------------------
+
+if __name__ == "__main__":
+    
+    parcheggio1 = Parcheggio()
+    moto = Moto("AB123CD", 2, 1)
+    auto = Auto("DG134AT", 5, 3, 200, 500)
+    print(moto)
+    print(auto)
+    parcheggio1.parcheggiaVeicolo("Moto", moto, 2)
+    parcheggio1.parcheggiaVeicolo("Auto", auto, 5)
+    print(parcheggio1)
+    print("Posti moto liberi: " + str(parcheggio1.postiLiberi("Moto")))
+    print("Posti auto liberi: " + str(parcheggio1.postiLiberi("Auto")))
+    print("Guadagno moto: " + str(parcheggio1.pagaParcheggio(moto, 2)) + "$")
+    print("Guadagno auto: " + str(parcheggio1.pagaParcheggio(auto, 5)) + "$")
+    print("Totale guadagno: " + str(parcheggio1.totaleGuadagno()) + "$")
+    parcheggio1.liberaParcheggio("Auto","DG134AT")
+    print(parcheggio1)
+
+# Perché non porta libera parcheggio?

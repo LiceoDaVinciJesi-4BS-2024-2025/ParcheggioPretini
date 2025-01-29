@@ -1,8 +1,8 @@
-import veicolo
+from veicolo import Veicolo
 
-class Auto(veicolo.Veicolo):
+class Auto(Veicolo):
     
-    def __init__(self, targa: str, passeggeriMassimi: int, numeroPasseggeri: int, kgTrasportati: int, kgMassimi: int):
+    def __init__(self, targa: str, passeggeriMassimi: int = 5, numeroPasseggeri: int = 1, kgTrasportati: int = 80, kgMassimi: int = 500):
         
         super().__init__(targa)
         if passeggeriMassimi <= 0 or passeggeriMassimi > 5:
@@ -12,7 +12,7 @@ class Auto(veicolo.Veicolo):
         if numeroPasseggeri > passeggeriMassimi or numeroPasseggeri <= 0:
             raise ValueError("Il numero di passeggeri non è valido o supera il limite consentito")
         self.__numeroPasseggeri = numeroPasseggeri
-        #guarda se devi trasportare anche le altre funzioni
+
         
         if kgMassimi <= 0 or kgMassimi > 500:
             raise ValueError("Il numero di kg massimi non è accettabile")
@@ -85,12 +85,12 @@ class Auto(veicolo.Veicolo):
     
 #-----------------------------------------------------------------------------------------------------
 #TEST
-# if __name__ == "__main__":
-#     #creo un'auto
-#     auto1 = Auto("AB123CD", 5, 3, 200, 500)
-#     auto1.marca = "subaru"
-#     auto1.passeggeriMassimi = 5
-#     auto1.numeroPasseggeri = 3
-#     auto1.kgTrasportati = 200
-#     auto1.kgMassimi = 500
-#     print(auto1)
+if __name__ == "__main__":
+    #creo un'auto
+    auto1 = Auto("AB123CD", 5, 3, 200, 500)
+    auto1.marca = "subaru"
+    auto1.passeggeriMassimi = 5
+    auto1.numeroPasseggeri = 3
+    auto1.kgTrasportati = 200
+    auto1.kgMassimi = 500
+    print(auto1)

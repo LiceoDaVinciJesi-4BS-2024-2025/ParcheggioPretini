@@ -2,7 +2,7 @@ import veicolo
 
 class Moto(veicolo.Veicolo):
     
-    def __init__(self, targa: str, passeggeriMassimi: int, numeroPasseggeri: int):
+    def __init__(self, targa: str, passeggeriMassimi: int = 2, numeroPasseggeri: int = 1):
         
         super().__init__(targa)
         if passeggeriMassimi <= 0 or passeggeriMassimi > 2:
@@ -12,7 +12,7 @@ class Moto(veicolo.Veicolo):
         if numeroPasseggeri > passeggeriMassimi or numeroPasseggeri <= 0:
             raise ValueError("Il numero di passeggeri non è valido o supera il limite consentito")
         self.__numeroPasseggeri = numeroPasseggeri
-        #guarda se devi trasportare anche le altre funzioni
+
     
     def __str__(self):
         return __class__.__name__ + str(self.__dict__)
@@ -50,10 +50,9 @@ class Moto(veicolo.Veicolo):
     
 #-----------------------------------------------------------------------------------------------------
 #TEST
-#if __name__ == "__main__":
+if __name__ == "__main__":
     #creo una moto
-#    moto1 = Moto("AB123CD", 2, 1)
-#     moto1.marca = "fiat"
-#     moto1.passeggeriMassimi = 1
-#     moto1.numeroPasseggeri = 1
+    moto1 = Moto("AB123CD", 2, 1)
+    moto1.passeggeriMassimi = 1
+    moto1.numeroPasseggeri = 1
     print(moto1)
