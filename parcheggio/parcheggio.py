@@ -4,12 +4,18 @@ from auto import Auto
 from postoMezzo import PostoMezzo
 
 class Parcheggio:
-    def __init__(self, postiAuto = None, postiMoto = None):
-        
-        if postiAuto == None and postiMoto == None:
-            self.__postiAuto = [PostoMezzo(False, "Auto") for x in range(1000)]
-            self.__postiMoto = [PostoMezzo(False, "Moto") for x in range(200)]   
     
+    def __init__(self, parcheggioNome: str):
+        
+        self.__postiAuto = []
+        self.__postiMoto = []
+        
+        for x in range(1000):
+            self.__postiAuto.append(PostoMezzo(False, "Auto"))
+        
+        for x in range(200):
+            self.__postiMoto.append(PostoMezzo(False, "Moto"))
+ 
     def __str__(self):
         a = "Parcheggio: " + str(self.__dict__)
         return a
@@ -25,36 +31,21 @@ class Parcheggio:
         for parcheggio in lista:
             if parcheggio.occupato == False:
                 parcheggio.parcheggia(veicolo, oreSosta)
-                break
+                return True
     
-    def liberaParcheggio(self, tipologia, targa):
+            return False
+    
+    def liberaPagaParcheggio(self, veicolo, oreSosta):
         
-        if tipologia == "Auto":
+        if isinstance(veicolo, Auto):
             lista = self.__postiAuto
         else:
             lista = self.__postiMoto
         
         for parcheggio in lista:
-            if parcheggio.targa == targa:
+            if parcheggio.targa == veicolo.targa:
                 parcheggio.libera()
                 break
-            
-    def postiLiberi(self, tipologia) -> int:
-        cnt = 0
-
-        if tipologia == "Moto":
-            for elem in self.__postiMoto:
-                if elem.occupato == False:
-                    cnt += 1
-                
-        elif tipologia == "Auto":
-            for elem in self.__postiAuto:
-                if elem.occupato == False:
-                    cnt += 1
-        return cnt
-    
-    
-    def pagaParcheggio(self, veicolo, oreSosta) -> int:
         
         if isinstance(veicolo, Auto):
             for elem in self.__postiAuto:
@@ -72,6 +63,21 @@ class Parcheggio:
         
         return totale
     
+            
+    def postiLiberi(self, tipologia) -> int:
+        cnt = 0
+
+        if tipologia == "Moto":
+            for elem in self.__postiMoto:
+                if elem.occupato == False:
+                    cnt += 1
+                
+        elif tipologia == "Auto":
+            for elem in self.__postiAuto:
+                if elem.occupato == False:
+                    cnt += 1
+        return cnt
+               
     def totaleGuadagno(self) -> int:
         totaleMoto = 0
         totaleAuto = 0
@@ -84,15 +90,12 @@ class Parcheggio:
             if elem.occupato:
                 totaleMoto += (elem.oreSosta * 1.2)
 
-        return (totaleAuto + totaleMoto) / 2
-
-# Perché se tolgo il diviso 2 porta il doppio?
-
+        return (totaleAuto + totaleMoto)
 #--------------------------------------------
 
 if __name__ == "__main__":
     
-    parcheggio1 = Parcheggio()
+    parcheggio1 = Parcheggio("Marracash Piadina")
     moto = Moto("AB123CD", 2, 1)
     auto = Auto("DG134AT", 5, 3, 200, 500)
     print(moto)
@@ -102,10 +105,7 @@ if __name__ == "__main__":
     print(parcheggio1)
     print("Posti moto liberi: " + str(parcheggio1.postiLiberi("Moto")))
     print("Posti auto liberi: " + str(parcheggio1.postiLiberi("Auto")))
-    print("Guadagno moto: " + str(parcheggio1.pagaParcheggio(moto, 2)) + "$")
-    print("Guadagno auto: " + str(parcheggio1.pagaParcheggio(auto, 5)) + "$")
+    print("Guadagno moto: " + str(parcheggio1.liberaPagaParcheggio(moto, 2)) + "$")
+    print("Guadagno auto: " + str(parcheggio1.liberaPagaParcheggio(auto, 5)) + "$")
     print("Totale guadagno: " + str(parcheggio1.totaleGuadagno()) + "$")
-    parcheggio1.liberaParcheggio("Auto","DG134AT")
     print(parcheggio1)
-
-# Perché non porta libera parcheggio?

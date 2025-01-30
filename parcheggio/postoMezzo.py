@@ -1,20 +1,15 @@
 from moto import Moto
 import veicolo
 import auto
-
+from veicolo import targaValida
 
 alfabeto = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 numeri = ["1","2","3","4","5","6","7","8","9","0"]
 
-def targaValida(targa) -> bool:
-    
-    if targa[0] not in alfabeto or targa[1] not in alfabeto or targa[2] not in numeri or targa[3] not in numeri or targa[4] not in numeri or targa[5] not in alfabeto or targa[6] not in alfabeto:
-        return False
-    return True
 
 class PostoMezzo:
     
-    def __init__(self, occupato: bool = None, tipologia: str = None, targa: str = None, oreSosta: int = None):
+    def __init__(self, occupato: bool = None, tipologia: str = None, targa: str = "", oreSosta: int = 0):
     
         if occupato == None:
             raise ValueError("Specificare se il posto è libero o occupato")
@@ -24,7 +19,7 @@ class PostoMezzo:
             raise ValueError("Specificare la tipologia di posto")
         self.__tipologia = tipologia
         
-        if not occupato and (targa != None or oreSosta != None):
+        if not occupato and (targa != "" or oreSosta != 0):
             raise ValueError("Un posto libero non può avere targa o oreSosta")
         
         if occupato and (targa == None or oreSosta == None):
@@ -39,8 +34,9 @@ class PostoMezzo:
         
             
             return
-              
-        self.__targa = targa
+        
+        if targaValida(targa):    
+            self.__targa = targa
         
         self.__oreSosta = oreSosta
         
@@ -118,7 +114,7 @@ class PostoMezzo:
 if __name__ == "__main__":
     
     moto = Moto("AB123CD", 2, 1)
-    posto = PostoMezzo(False, "Moto", None, None)
+    posto = PostoMezzo(False, "Moto", "", 0)
     print(posto)
     print(posto.parcheggia(moto, 3))
     print(posto)

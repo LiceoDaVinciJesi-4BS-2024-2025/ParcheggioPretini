@@ -9,8 +9,9 @@ numeri = ["1","2","3","4","5","6","7","8","9","0"]
 
 def targaValida(targa) -> bool:
     
-    if targa[0] not in alfabeto or targa[1] not in alfabeto or targa[2] not in numeri or targa[3] not in numeri or targa[4] not in numeri or targa[5] not in alfabeto or targa[6] not in alfabeto:
-        return False
+    if targa != "":
+        if targa[0] not in alfabeto or targa[1] not in alfabeto or targa[2] not in numeri or targa[3] not in numeri or targa[4] not in numeri or targa[5] not in alfabeto or targa[6] not in alfabeto:
+            return False
     return True
 
 
